@@ -26,6 +26,7 @@
   
   //#define PRINTOUT 
   #define NTC_INPUT  A2
+  #define NTC_CURRENT  A3  
 
 #include <Adafruit_Si7021.h>
 #include <Adafruit_SSD1306.h>
@@ -45,6 +46,7 @@ void setup() {
 }
 void loop() {
   Adc_Read();
+  Read_Current();
   SensorRead();
   Run_AirSpeed();
   CSV_Data();

@@ -12,6 +12,7 @@ SensorData Sensor ;
 #define RESISTOR_LOW 3300  // 3K3
   int16_t Adc_10bit, Adc_12bit; 
   float Vreal_10bit, Vreal_12bit;
+  uint16_t NtcCurrent;
 
 int Counter;
 
@@ -23,30 +24,39 @@ double a4 = 0.0001025;   // c6
 double Current = 0.034;  //c7 
 double Kelvin = 273.15;  //c8
 
-double const   D1a = 1636.4409 ;// c10
-double const   D1b = 215689.3377 ;// c11
-double const   D1c = 11082088.6657 ;// c12
-double const   D1d = 278057421.4872  ;// c13
-double const   D1e = 3413265323.7325 ;// c14
-double const   D1f = 16438734835.3564  ;// c15
-double const   D2a = 974.5457  ;// c16
-double const   D2b = 128654.069  ;// c17
-double const   D2c = 6619830.2817  ;// c18
-double const   D2d = 166316354.8414  ;// c19
-double const   D2e = 2044018673.7919 ;// c20
-double const   D2f = 9843764074.406  ;// c21
-double const   D3a = 192.8673  ;// c22
-double const   D3b = 25177.7172  ;// c23
-double const   D3c = 1284067.9052  ;// c24
-double const   D3d = 32029909.1427 ;// c25
-double const   D3e = 391313302.5273  ;// c26
-double const   D3f = 1874600544.4209 ;// c27
-double const   D4a = 11.9134 ;    // c28
-double const   D4b = 1538.2402 ;// c29
-double const   D4c = 77756.7512  ;// c30
-double const   D4d = 1925437.9308  ;// c31
-double const   D4e = 23379889.6658 ;// c32
-double const   D4f = 111422572.3911  ;// c33
+double const  koffset = 4.60607;
+double const  moffset = 0.18485;
+// double const  poffset = 0.923*0.97; // 0.949035;
+double const  poffset = 0.949035; // 0.949035; Real
+
+
+//double const  poffset = 0.923*0.97; // 0.949035;
+
+
+double const   D1a = 655.0979 ;// c10
+double const   D1b = 69280.7773 ;// c11
+double const   D1c = 2837917.0849 ;// c12
+double const   D1d = 56765701.9121  ;// c13
+double const   D1e = 561901509.5595 ;// c14
+double const   D1f = 2209296497.7217  ;// c15
+double const   D2a = 367.7358  ;// c16
+double const   D2b = 37954.7195  ;// c17
+double const   D2c = 1506196.5333  ;// c18
+double const   D2d = 28964537.2073  ;// c19
+double const   D2e = 274075616.4683 ;// c20
+double const   D2f = 1032074386.7638  ;// c21
+double const   D3a = 60.0377  ;// c22
+double const   D3b = 5937.1923  ;// c23
+double const   D3c = 222035.7143  ;// c24
+double const   D3d = 3940721.8855 ;// c25
+double const   D3e = 33689832.8515  ;// c26
+double const   D3f = 112987293.3332 ;// c27
+double const   D4a = 2.8134 ;    // c28
+double const   D4b = 255.7888 ;// c29
+double const   D4c = 8346.3663  ;// c30
+double const   D4d = 116969.3227  ;// c31
+double const   D4e = 634315.6067 ;// c32
+double const   D4f = 563185.0928  ;// c33
 
 double const   v1  = 5.32911E-10 ; // c35
 double const   v2  = 7.00072E-08 ; // c36

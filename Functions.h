@@ -4,43 +4,48 @@
   Adafruit_Si7021 THsensor = Adafruit_Si7021();
   
   void SensorInit(){
-	if (!THsensor.begin()) {
+  if (!THsensor.begin()) {
     #ifdef PRINTOUT 
-		Serial.print(F("No Si7021 sensor Found"));
+    Serial.print(F("No Si7021 sensor Found"));
         #endif  
   //  delay(250);
   //  while (true)      
-	}
-	else{
+  }
+  else{
   #ifdef PRINTOUT 
-		Serial.print(F(" Si7021 sensor found!"));
+    Serial.print(F(" Si7021 sensor found!"));
     #endif     
-		//   Serial.print(" Rev(");
-		//  Serial.print(THsensor.getRevision());
-		THsensor.getRevision();
-	   //         Sensor1_Id.toUpperCase();     
-		Sensor.Id = THsensor.sernum_a;
+    //   Serial.print(" Rev(");
+    //  Serial.print(THsensor.getRevision());
+    THsensor.getRevision();
+     //         Sensor1_Id.toUpperCase();     
+    Sensor.Id = THsensor.sernum_a;
   
     #ifdef PRINTOUT 
-		Serial.println(Sensor.Id ,HEX); 
+    Serial.println(Sensor.Id ,HEX); 
     #endif
-	}
+  }
 }
 
  void SensorRead(){
-	Sensor.Humidity = THsensor.readHumidity(); 
+  Sensor.Humidity = THsensor.readHumidity(); 
   #ifdef PRINTOUT 
-	Serial.println("Humidity: "); Serial.println(Sensor.Humidity); 
+  Serial.println("Humidity: "); Serial.println(Sensor.Humidity); 
   #endif
-	Sensor.Temperature = THsensor.readTemperature();
+  Sensor.Temperature = THsensor.readTemperature();
   #ifdef PRINTOUT   
-	Serial.println("Temperature: "); Serial.println(Sensor.Temperature); 
+  Serial.println("Temperature: "); Serial.println(Sensor.Temperature); 
   #endif
 
   AirTemp = (double)Sensor.Temperature;
   Humidity = (double)Sensor.Humidity/100;
 }
+void Read_Current(void){
+     analogReadResolution(12);
+      NtcCurrent = analogRead(NTC_CURRENT);
 
+      
+}
 void Adc_Read(void){
   #ifdef ARDUINO_DUE
     #ifdef ADC_10BIT   
@@ -65,11 +70,23 @@ void Adc_Read(void){
       //  Vreal_12bit  *= (RESISTOR_LOW + RESISTOR_HIGH );  // 12 bit  
       Vreal_12bit = (float)Adc_12bit*3.3;
       Vreal_12bit /= 4096;
-      Voltage = Vreal_12bit;
+      Voltage =  ((Vreal_12bit * koffset) + moffset)* poffset;
+      
+
+// Artur Added
+   //   Voltage =  ((Vreal_12bit * koffset) + moffset)* poffset;
+    //        if (Voltage > 7.5)
+    //  {
+// Voltage = Voltage * 1.0209;}
+// Artur Added
+
+
+
+
       #ifdef PRINTOUT 
       Serial.print(", 12-bit : ");
       Serial.println(Adc_12bit);
-      Serial.print("Vreal_12bit : ");
+      Serial.print("Vreal_12bit : ");vc  
       Serial.println(Vreal_12bit);  
       #endif
     #endif    

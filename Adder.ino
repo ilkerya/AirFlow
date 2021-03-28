@@ -68,12 +68,12 @@ void  Run_AirSpeed(void) {
 
   S_k = AirDissipation / AirConductivity;
 
-  D1 = -D1a * pow(AirTemp, 5);
-  D1 += D1b * pow(AirTemp, 4);
-  D1 += -D1c * pow(AirTemp, 3);
-  D1 += D1d * pow(AirTemp, 2);
-  D1 += -D1e * AirTemp;
-  D1 += D1f;
+  D1 = D1a * pow(AirTemp, 5);
+  D1 += -D1b * pow(AirTemp, 4);
+  D1 += +D1c * pow(AirTemp, 3);
+  D1 += -D1d * pow(AirTemp, 2);
+  D1 += +D1e * AirTemp;
+  D1 += -D1f;
 
   /*
       D1 = D1f;  Serial.println(D1,8);
@@ -85,34 +85,46 @@ void  Run_AirSpeed(void) {
   */
 
   D2 = pow(AirTemp, 5);
-  D2 *= D2a;
-  D2 += -D2b * pow(AirTemp, 4);
-  D2 += D2c * pow(AirTemp, 3);
-  D2 += -D2d * pow(AirTemp, 2);
-  D2 += D2e * AirTemp;
-  D2 += -D2f;
+  D2 *= -D2a;
+  D2 += D2b * pow(AirTemp, 4);
+  D2 += -D2c * pow(AirTemp, 3);
+  D2 += D2d * pow(AirTemp, 2);
+  D2 += -D2e * AirTemp;
+  D2 += D2f;
 
 
-  D3 = -D3a * pow(AirTemp, 5);
-  D3 += D3b * pow(AirTemp, 4);
-  D3 += -D3c * pow(AirTemp, 3);
-  D3 += D3d * pow(AirTemp, 2);
-  D3 += -D3e * AirTemp;
-  D3 += D3f;
+  D3 = D3a * pow(AirTemp, 5);
+  D3 += -D3b * pow(AirTemp, 4);
+  D3 += D3c * pow(AirTemp, 3);
+  D3 += -D3d * pow(AirTemp, 2);
+  D3 += D3e * AirTemp;
+  D3 += -D3f;
 
 
-  D4 = D4a * pow(AirTemp, 5);
-  D4 += -D4b * pow(AirTemp, 4);
-  D4 += D4c * pow(AirTemp, 3);
-  D4 += -D4d * pow(AirTemp, 2);
-  D4 += D4e * AirTemp;
-  D4 += -D4f;
+  D4 = -D4a * pow(AirTemp, 5);
+  D4 += D4b * pow(AirTemp, 4);
+  D4 += -D4c * pow(AirTemp, 3);
+  D4 += D4d * pow(AirTemp, 2);
+  D4 += -D4e * AirTemp;
+  D4 += D4f;
+
+
 
   AirSpeed = D1 * pow(S_k, 3);
   AirSpeed += D2 * pow(S_k, 2);
   AirSpeed += D3 * S_k ;
-  AirSpeed += D4;
+  AirSpeed += D4; 
   AirSpeed *= AirViscosity;
+
+  if (AirSpeed < 0.035)
+      {
+  AirSpeed *= 0.6;
+      }
+
+  if (AirSpeed < 0.001)
+      {
+  AirSpeed = 0;
+      }
 
 }
 

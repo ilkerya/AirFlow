@@ -12,7 +12,7 @@ SensorData Sensor ;
 #define RESISTOR_LOW 3300  // 3K3
   int16_t Adc_10bit, Adc_12bit; 
   float Vreal_10bit, Vreal_12bit;
-  uint16_t NtcCurrent;
+  uint16_t NtcCurrent_Adc, NtcVolt, NtcCurrent;
 
 int Counter;
 

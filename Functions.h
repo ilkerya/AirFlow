@@ -40,11 +40,16 @@
   AirTemp = (double)Sensor.Temperature;
   Humidity = (double)Sensor.Humidity/100;
 }
+#define RES_27R 27
+#define RES_60R 60
 void Read_Current(void){
      analogReadResolution(12);
-      NtcCurrent = analogRead(NTC_CURRENT);
-
-      
+      NtcCurrent_Adc = analogRead(NTC_CURRENT);
+      //3300 / 4096
+      uint32_t temp = NtcCurrent_Adc*3300;
+      NtcVolt = temp / 4096;
+     // NtcCurrent = NtcVolt / 27;  // 27R for 36 mA
+       NtcCurrent = NtcVolt / 60;  // 60R for 15 mA     
 }
 void Adc_Read(void){
   #ifdef ARDUINO_DUE

@@ -207,13 +207,22 @@ void displayValues(void)
     //display.print(Voltage,3);   //10
 
     display.setCursor(0, 32); //Line 5 
-    display.print(AirSpeed,8);   //10
-    display.print(" m/sn");   //10
-
+    display.print(NtcCurrent_Adc);   //10
+    display.print("Adc ");   //10
+    display.print(NtcVolt);   //10
+    display.print("mV ");   //10
+    display.print(NtcCurrent);   //10
+    display.print("mA");   //10
+    
+    
     display.setCursor(0, 40);
  //   display.print(Display_Line6);  // Line 6
 
     display.setCursor(0, 48);
+
+    display.print(AirSpeed,8);   //10
+    display.print(" m/sn");   //10
+    
   //  display.print(Display_Line7); // Line 7
 
     display.setCursor(0, 56); // // Line 8 
